@@ -1,0 +1,24 @@
+{
+  "name": "koa_sample",
+  "version": "0.0.1",
+  "description": "koa sample",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --harmony app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "~0.1.2",
+    "koa-route": "~1.0.2",
+    "koa-static": "~1.4.0",
+    "co-views": "~0.1.0",
+    "jade": "~1.0.0",
+    "stream-injecter": "0.0.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}

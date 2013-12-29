@@ -1,0 +1,33 @@
+{
+  "name": "koa-livereload",
+  "version": "0.0.1",
+  "description": "Livereload script loader for Koa",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "stream-injecter": "0.0.1",
+    "koa": "~0.1.2"
+  },
+  "devDependencies": {
+    "koa": "~0.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yosuke-furukawa/koa-livereload.git"
+  },
+  "keywords": [
+    "livereload",
+    "koa"
+  ],
+  "author": "yosuke-furukawa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yosuke-furukawa/koa-livereload/issues"
+  },
+  "homepage": "https://github.com/yosuke-furukawa/koa-livereload"
+}
