@@ -9,7 +9,8 @@ function livereload(opts) {
   var snippet = "\n<script type=\"text/javascript\">document.write('<script src=\"" + src + "\" type=\"text/javascript\"><\\/script>')</script>\n";
   return function *livereload(next) {
     yield* next;
-    if (!/html/.test(this.response.type)) return;
+
+    if (this.response.type.indexOf('html') < 0) return;
 
     // Buffer
     if (Buffer.isBuffer(this.body)) {
