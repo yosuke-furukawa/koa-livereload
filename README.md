@@ -1,4 +1,4 @@
-koa-livereload
+koa-livereload [![Build Status](https://travis-ci.org/yosuke-furukawa/koa-livereload.png)](https://travis-ci.org/yosuke-furukawa/koa-livereload)
 ==============
 
 koa middleware for adding livereload script to the response body. 
