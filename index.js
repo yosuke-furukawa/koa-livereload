@@ -24,7 +24,7 @@ function livereload(opts) {
     }
 
     // stream
-    if (typeof this.body.pipe === 'function') {
+    if (this.body && typeof this.body.pipe === 'function') {
       var injecter = new StreamInjecter({
         matchRegExp : /(<\/body>)/,
         inject : snippet,
