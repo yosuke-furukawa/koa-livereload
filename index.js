@@ -10,7 +10,7 @@ function livereload(opts) {
   return function *livereload(next) {
     yield* next;
 
-    if (this.response.type.indexOf('html') < 0) return;
+    if (this.response.type && this.response.type.indexOf('html') < 0) return;
 
     // Buffer
     if (Buffer.isBuffer(this.body)) {
@@ -22,9 +22,9 @@ function livereload(opts) {
       if (this.body.match(/livereload.js/)) return;
       this.body = this.body.replace(/<\/body>/, snippet + "<\/body>");
     }
-    
+
     // stream
-    if (typeof this.body.pipe === 'function') {
+    if (this.body && typeof this.body.pipe === 'function') {
       var injecter = new StreamInjecter({
         matchRegExp : /(<\/body>)/,
         inject : snippet,
