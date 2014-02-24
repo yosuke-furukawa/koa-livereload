@@ -31,6 +31,9 @@ function livereload(opts) {
         replace : snippet + "$1",
         ignore : /livereload.js/
       });
+      var size = +this.response.header['content-length'];
+
+      if (size) this.set('Content-Length', size + snippet.length);
       this.body = this.body.pipe(injecter);
     }
   };
