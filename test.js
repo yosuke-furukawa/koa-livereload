@@ -2,6 +2,7 @@ var request = require('supertest');
 var assert = require('assert');
 var http = require('http');
 var koa = require('koa');
+var serve = require('koa-static');
 var Stream = require('stream');
 var fs = require('fs');
 var path = require('path');
@@ -49,6 +50,21 @@ describe("Livereload", function() {
     app.use(bufferHtml);
     request(app.listen())
     .get('/')
+    .expect(200)
+    .end(function (err, res) {
+      if (err) return done(err);
+
+      res.text.should.equal(expectHtml);
+      done();
+    });
+  });
+
+  it('should contain livereload static middleware', function (done) {
+    var app = koa();
+    app.use(livereload());
+    app.use(serve(__dirname));
+    request(app.listen())
+    .get('/expect.html')
     .expect(200)
     .end(function (err, res) {
       if (err) return done(err);
