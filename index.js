@@ -12,6 +12,13 @@ function livereload(opts) {
 
     if (this.response.type && this.response.type.indexOf('html') < 0) return;
 
+    if (opts.excludes) {
+      var path = this.path;
+      if (opts.excludes.some(function (exlude) {
+        return path.substr(0, exlude.length) === exlude;
+      })) return;
+    }
+
     // Buffer
     if (Buffer.isBuffer(this.body)) {
       this.body = this.body.toString();
