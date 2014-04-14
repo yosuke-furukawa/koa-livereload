@@ -41,6 +41,13 @@ this middleware can be used with a LiveReload server e.g. [grunt-contrib-watch](
   }));
 ```
 
+```js
+  app.use(livereload({
+    // if you want certain paths to be excluded from injection (i.e. Angular partials/views path)
+    excludes  : ['/partials']
+  }));
+```
+
 credits
 --------
 * [LiveReload Creator](http://livereload.com/)

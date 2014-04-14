@@ -43,6 +43,21 @@ describe("Livereload", function() {
       done();
     });
   });
+  
+  it('should not contain livereload text on excluded path', function (done) {
+    var app = koa();
+    app.use(livereload({excludes: ['/partials']}));
+    app.use(textHtml);
+    request(app.listen())
+    .get('/partials/posts.html')
+    .expect(200)
+    .end(function (err, res) {
+      if (err) return done(err);
+
+      res.text.should.not.equal(expectHtml);
+      done();
+    });
+  });
 
   it('should contain livereload buffer', function (done) {
     var app = koa();
