@@ -8,13 +8,11 @@ function livereload(opts) {
   var src = opts.src || "' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':" + port + "/livereload.js?snipver=1";
   var snippet = "\n<script type=\"text/javascript\">document.write('<script src=\"" + src + "\" type=\"text/javascript\"><\\/script>')</script>\n";
   return (ctx, next) => next().then(() => {
-    if (ctx.response.type && ctx.response.type.indexOf('html') < 0) return;
+    if (ctx.response.type && !ctx.response.type.includes('html')) return;
 
     if (opts.excludes) {
       var path = ctx.path;
-      if (opts.excludes.some(function (exlude) {
-        return path.substr(0, exlude.length) === exlude;
-      })) return;
+      if (opts.excludes.some(exclude => path.startsWith(exclude))) return;
     }
 
     // Buffer
