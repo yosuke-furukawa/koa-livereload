@@ -1,6 +1,6 @@
 {
   "name": "koa-livereload",
-  "version": "0.1.23",
+  "version": "0.2.0",
   "description": "Livereload script loader for Koa",
   "main": "index.js",
   "directories": {
