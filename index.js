@@ -7,41 +7,39 @@ function livereload(opts) {
   var port = opts.port || 35729;
   var src = opts.src || "' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':" + port + "/livereload.js?snipver=1";
   var snippet = "\n<script type=\"text/javascript\">document.write('<script src=\"" + src + "\" type=\"text/javascript\"><\\/script>')</script>\n";
-  return function *livereload(next) {
-    yield* next;
-
-    if (this.response.type && this.response.type.indexOf('html') < 0) return;
+  return (ctx, next) => next().then(() => {
+    if (ctx.response.type && ctx.response.type.indexOf('html') < 0) return;
 
     if (opts.excludes) {
-      var path = this.path;
+      var path = ctx.path;
       if (opts.excludes.some(function (exlude) {
         return path.substr(0, exlude.length) === exlude;
       })) return;
     }
 
     // Buffer
-    if (Buffer.isBuffer(this.body)) {
-      this.body = this.body.toString();
+    if (Buffer.isBuffer(ctx.body)) {
+      ctx.body = ctx.body.toString();
     }
 
     // string
-    if (typeof this.body === 'string') {
-      if (this.body.match(/livereload.js/)) return;
-      this.body = this.body.replace(/<\/body>/, snippet + "<\/body>");
+    if (typeof ctx.body === 'string') {
+      if (ctx.body.match(/livereload.js/)) return;
+      ctx.body = ctx.body.replace(/<\/body>/, snippet + "<\/body>");
     }
 
     // stream
-    if (this.body && typeof this.body.pipe === 'function') {
+    if (ctx.body && typeof ctx.body.pipe === 'function') {
       var injecter = new StreamInjecter({
         matchRegExp : /(<\/body>)/,
         inject : snippet,
         replace : snippet + "$1",
         ignore : /livereload.js/
       });
-      var size = +this.response.header['content-length'];
+      var size = +ctx.response.header['content-length'];
 
-      if (size) this.set('Content-Length', size + snippet.length);
-      this.body = this.body.pipe(injecter);
+      if (size) ctx.set('Content-Length', size + snippet.length);
+      ctx.body = ctx.body.pipe(injecter);
     }
-  };
+  });
 }
