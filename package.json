@@ -14,7 +14,7 @@
     "koa": "~0.1.2",
     "koa-static": "~1.4.0",
     "should": "~2.1.1",
-    "mocha": "~1.16.2",
+    "mocha": "^2.5.3",
     "supertest": "~0.8.2"
   },
   "scripts": {
