@@ -36,7 +36,7 @@ function livereload(opts) {
       });
       var size = +ctx.response.header['content-length'];
 
-      if (size) ctx.set('Content-Length', size + snippet.length);
+      if (size) ctx.set('Content-Length', size + Buffer.byteLength(snippet));
       ctx.body = ctx.body.pipe(injecter);
     }
   });
